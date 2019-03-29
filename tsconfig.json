@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": { "*": ["types/*"] },
+    "target": "es2016",
+    "lib": ["es2016"],
+    "outDir": "dist/",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "pretty": true,
+    "strict": true,
+    "sourceMap": true,
+    "declaration": true,
+    "noUnusedLocals": true,
+    "removeComments": true,
+    "noImplicitReturns": true,
+    "esModuleInterop": true,
+    "strictPropertyInitialization": false
+  },
+  "exclude": ["node_modules"],
+  "include": ["src/**/*"]
+}
