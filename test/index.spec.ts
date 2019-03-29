@@ -1,24 +1,6 @@
-import { SocketServer } from '../src'
-import request from 'supertest';
-import express from 'express';
 
+it('should return the sum of two numbers', () => {
+  const result = 40+2;
 
-const { expressApp: app } = SocketServer.Instance.init({
-  express: {
-    port: 3040,
-    app: express()
-  },
-  redis: {
-    ip: 'localhost'
-  }
+  expect(result).toBe(42)
 })
-
-describe('GET /', function() {
-  it('responds with json', function(done) {
-    request(app)
-      .get('/')
-      // .set('Accept', 'application/json')
-      // .expect('Content-Type', /json/)
-      .expect(200, done);
-  });
-});
