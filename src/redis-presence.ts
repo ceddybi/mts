@@ -61,10 +61,10 @@ export class Presence {
     return new Promise((resolve, reject) => {
       this.client.hset(this.presenceKey, connectionId, data, err => {
         if (err) {
-          // // l.error('Failed to store presence in redis: ' + err)
+          console.error('Failed to store presence in redis: ' + err)
           return reject(err)
         }
-        // // l.info('Added ', connectionId)
+        console.log('Added ', connectionId)
         return resolve(connectionId)
       })
     })
@@ -80,7 +80,7 @@ export class Presence {
       // Check if we already have this client
       this.client.hget(this.presenceKey, connectionId, (err, preza) => {
         if (err) {
-          // l.error('Nope we dont have this client', err)
+          console.error('Nope we dont have this client', err)
           return rej('Nope we dont have this client')
         }
 
@@ -93,11 +93,11 @@ export class Presence {
 
         this.client.hset(this.presenceKey, connectionId, data, err => {
           if (err) {
-            // l.error('Failed to store presence in redis: ' + err)
+            console.error('Failed to store presence in redis: ' + err)
             return rej(new Error('Failed to store presence in redis: ' + err))
           }
-          // l.info('ID', connectionId)
-          // l.info('UPDATED WITH ', data)
+          console.log('ID', connectionId)
+          console.log('UPDATED WITH ', data)
           return res(connectionId)
         })
       })
@@ -113,10 +113,10 @@ export class Presence {
     return new Promise((resolve, reject) => {
       this.client.hdel(this.presenceKey, connectionId, err => {
         if (err) {
-          // l.error('Failed to remove presence in redis: ' + err)
+          console.error('Failed to remove presence in redis: ' + err)
           return reject(err)
         }
-        // l.info('removed presence in redis: ' + connectionId)
+        console.log('removed presence in redis: ' + connectionId)
         return resolve(connectionId)
       })
     })
@@ -135,7 +135,7 @@ export class Presence {
         try {
           res(JSON.parse(data))
         } catch (error) {
-          // l.info(error)
+          console.log(error)
           rej(err)
         }
       })
@@ -153,7 +153,9 @@ export class Presence {
     return new Promise(res => {
       this.client.hgetall(this.presenceKey, (err, presence: any) => {
         if (err) {
-          // l.info('Failed to get presence from Redis, returning empty: ' + err)
+          console.log(
+            'Failed to get presence from Redis, returning empty: ' + err,
+          )
           return res([])
         }
 
@@ -177,7 +179,7 @@ export class Presence {
   }
 
   public async clean(toDelete: PresenceData[]): Promise<any> {
-    // l.info(`Cleaning ${toDelete.length} expired presences`)
+    console.log(`Cleaning ${toDelete.length} expired presences`)
     for (const presence of toDelete) {
       await this.remove(presence.connectionId)
     }

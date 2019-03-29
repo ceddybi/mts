@@ -78,7 +78,7 @@ export class SocketServer {
 
     // Listen
     this.server.listen(this.port, () => {
-      // l.info('Running server on port %s', this.port)
+      console.log('Running server on port %s', this.port)
     })
 
     // Redis adapter
@@ -87,12 +87,12 @@ export class SocketServer {
     )
 
     this.io.on('connect', (socket: any) => {
-      // l.info('Connected client on port %s.', this.port)
+      console.log('Connected client on port %s.', this.port)
 
       this.connectedSocket = socket
 
       socket.on('disconnect', () => {
-        // l.info('Client disconnected')
+        console.log('Client disconnected')
       })
     })
 
