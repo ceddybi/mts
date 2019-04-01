@@ -154,7 +154,7 @@ export class Presence {
     const dead: PresenceData[] = []
     const now = Date.now()
 
-    return new Promise(res => {
+    let items = await new Promise(res => {
       this.client.hgetall(this.presenceKey, (err, presence: any) => {
         if (err) {
           console.log(
@@ -173,13 +173,14 @@ export class Presence {
             dead.push(details)
           }
         }
-
-        if (dead.length) {
-          // self._clean(dead);
-        }
         return res(active)
       })
     })
+
+    if (dead.length) {
+      await this.clean(dead)
+    }
+    return items
   }
 
   public async clean(toDelete: PresenceData[]): Promise<any> {
