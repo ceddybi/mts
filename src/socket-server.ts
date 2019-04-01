@@ -3,7 +3,6 @@ import { createServer, Server } from 'http'
 import redis, { RedisClient } from 'redis'
 import socketIo from 'socket.io'
 import ioRedis from 'socket.io-redis'
-import Presence from './redis-presence'
 // import l from './log'
 
 interface SocketServerProps {
