@@ -3,6 +3,7 @@ import { createServer, Server } from 'http'
 import redis, { RedisClient } from 'redis'
 import socketIo from 'socket.io'
 import ioRedis from 'socket.io-redis'
+import Presence from './redis-presence'
 // import l from './log'
 
 interface SocketServerProps {
@@ -37,6 +38,7 @@ export class SocketServer {
   private connectedSocket: any
   private port: string | number
   private redisApp = redis.createClient
+  private defaultPresence: Presence
 
   private socketpub: RedisClient
   private socketsub: RedisClient
@@ -124,6 +126,18 @@ export class SocketServer {
   public getSocket(): SocketIO.Socket {
     return this.connectedSocket
   }
+
+  //   /**
+  //  * Get current connected SocketIO.Socket
+  //  */
+  //   public getRedisPresence(: string): Presence {
+  //     if(this.defaultPresence){
+  //       return this.defaultPresence;
+  //     }
+  //     return new Presence({
+  //       re
+  //     })
+  //   }
 }
 
 export default SocketServer

@@ -14,6 +14,7 @@ export class Presence {
   public client: RedisClient
   public clientSub: RedisClient
   public presenceKey: string = 'redis-presence'
+  public expire: number
 
   private constructor() {}
 
@@ -22,7 +23,10 @@ export class Presence {
     redisPort: number,
     redisPassword: string,
     presenceKey: string,
+    expire: number,
   ) {
+    this.expire = expire || 3600000 // default to one hour
+
     this.client = redis.createClient(redisPort || 6379, redisIP, {
       auth_pass: redisPassword || '',
       return_buffers: true,
@@ -163,7 +167,7 @@ export class Presence {
         for (const connection in presence) {
           const details = JSON.parse(presence[connection])
           // details.connection = connection;
-          if (now - details.when < 8000) {
+          if (now - details.when < this.expire) {
             active.push(details)
           } else {
             dead.push(details)
