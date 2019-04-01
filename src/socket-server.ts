@@ -38,7 +38,6 @@ export class SocketServer {
   private connectedSocket: any
   private port: string | number
   private redisApp = redis.createClient
-  private defaultPresence: Presence
 
   private socketpub: RedisClient
   private socketsub: RedisClient
